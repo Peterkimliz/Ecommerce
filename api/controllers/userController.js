@@ -104,3 +104,31 @@ exports.getSpecificUser=async(req,res)=>{
     res.status(500).json(error);
     }
  }
+
+ exports.getAllUsers=async(req,res)=>{
+    try{
+          const user=await User.find();
+          if(user){
+            const finalUserDisplay={
+                count:user.length,
+                users:user.map(user=>
+                    {
+                        return{
+                            _id:user._id,
+                            email:user.email,
+                            username:user.name,
+                            profilePic:user.profilePic,
+                            status:user.status,
+                            }
+                    })
+                }  
+            res.status(200).json(finalUserDisplay);  
+          }else{
+            res.status(404).json("no users found");  
+          }      
+
+    }catch(err){
+        res.status(500).json(err)
+    }
+
+}
