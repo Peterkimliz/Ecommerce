@@ -108,7 +108,7 @@ exports.getSpecificUser=async(req,res)=>{
  exports.getAllUsers=async(req,res)=>{
     try{
           const user=await User.find();
-          if(user){
+          if(user.length>=1){
             const finalUserDisplay={
                 count:user.length,
                 users:user.map(user=>
